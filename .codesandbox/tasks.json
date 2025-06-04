@@ -12,7 +12,7 @@
       "command": "npm start",
       "runAtStart": true,
       "preview": {
-        "port": 6969
+        "port": 2222
       }
     }
   }
