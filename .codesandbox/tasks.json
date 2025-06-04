@@ -1,8 +1,8 @@
 {
   "setupTasks": [
     {
-      "name": "install",
-      "command": "npm install"
+      "command": "npm install",
+      "name": "install"
     }
   ],
 
@@ -12,7 +12,7 @@
       "command": "npm start",
       "runAtStart": true,
       "preview": {
-        "port": 2222
+        "port": 7070
       }
     }
   }
