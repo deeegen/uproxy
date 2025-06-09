@@ -4,7 +4,6 @@ const fs = require("fs");
 
 // CONFIGURATION
 const prefix = "/web";
-const localAddresses = [];
 const blockedHostnames = ["https://sevenworks.eu.org/bad-site"];
 const ssl = false;
 const port = 6969;
@@ -12,7 +11,6 @@ const index_file = "index.html";
 // END OF CONFIGURATION
 
 const proxy = new (require("./lib/index"))(prefix, {
-  localAddress: localAddresses,
   blacklist: blockedHostnames,
 });
 
@@ -46,16 +44,16 @@ const app = (req, res) => {
   ) {
     let url = atob(req.query.url);
 
-    if (url.startsWith("https://") || url.startsWith("http://")) url = url;
-    else if (url.startsWith("//")) url = "http:" + url;
-    else url = "http://" + url;
+    if (url.startsWith("https://") || url.startsWith("http://")) {
+      // url is fine
+    } else if (url.startsWith("//")) {
+      url = (ssl ? "https:" : "http:") + url;
+    } else {
+      url = (ssl ? "https://" : "http://") + url;
+    }
 
     const proxifiedPath = prefix + proxy.proxifyRequestURL(url);
 
-    // Instead of redirecting directly to the full proxified path, serve a clean page
-    // The clean page (public/session/index.html) should run JS to do:
-    //   - fetch the real proxied content
-    //   - replaceState to mask URL
     res.writeHead(200, { "Content-Type": "text/html" });
     res.end(`
       <!DOCTYPE html>
