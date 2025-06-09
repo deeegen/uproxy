@@ -5,7 +5,7 @@ const fs = require("fs");
 // CONFIGURATION
 const prefix = "/web";
 const localAddresses = [];
-const blockedHostnames = ["https://sevenworks.eu.org/r-i-p"];
+const blockedHostnames = ["https://sevenworks.eu.org/bad-site"];
 const ssl = false;
 const port = 6969;
 const index_file = "index.html";
